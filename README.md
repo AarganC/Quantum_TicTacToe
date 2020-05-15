@@ -24,7 +24,11 @@ Environment working on :
 - Qiskit 0.19.1 
 - Flask 1.1.2
 
-> if needed, set the correct versions below install commands
+Create conda env with `environment.yml` :
+
+    conda env create -f environment.yml
+
+Or install manually the dependencies :
 
     pip install qiskit
     pip install matplotlib
@@ -33,6 +37,8 @@ Environment working on :
 	pip install seaborn
 	pip install pygments
 	pip install flask
+	
+> if needed, set the correct versions on above commands
 	    
 
 ### Quick Start
