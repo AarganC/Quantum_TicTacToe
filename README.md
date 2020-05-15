@@ -22,7 +22,7 @@
 Environment working on :
 - Python 3.7
 - Qiskit 0.19.1 
-- Flask  : 1.1.2
+- Flask 1.1.2
 
 > if needed, set the correct versions below install commands
 
@@ -38,7 +38,7 @@ Environment working on :
 ### Quick Start
 GUI :
 - launch server:	`bash run.sh`
-- than open games :
+- then open games :
 	- [http://localhost:5000/basic](http://localhost:5000/basic)
 	- [http://localhost:5000/grover](http://localhost:5000/grover)
 
