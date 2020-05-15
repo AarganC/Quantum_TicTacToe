@@ -46,7 +46,7 @@ class QuantumAgent(Agent,):
                 overwrite=True)
 
             IBMQ.load_account()
-            provider = IBMQ.get_provider(hub='ibm-q')
+            # provider = IBMQ.get_provider(hub='ibm-q')
 
             # backend = least_busy(provider.backends(filters=lambda x:
             # x.configuration().n_qubits >= 9 and
@@ -187,7 +187,7 @@ class QuantumAgent(Agent,):
                 self.num_t_gates[index] = -1
         qc.measure(q, c)
 
-        backend = provider.backends('ibmq_qasm_simulator')
+        backend = Aer.get_backend('qasm_simulator')
         logger.info("Made the circuit, running it on the backend: {}".format(backend))
         shots = 100
         # job_sim = execute(qc, backend, shots=shots)
@@ -217,7 +217,10 @@ class QuantumAgent(Agent,):
         self.move = max_index
         results = job_sim.result()
         answer = results.get_counts(qc)
-        plot_histogram(answer)
+        fig = plot_histogram(answer)
+        fig.show()
+        img = qc.draw(output="mpl")
+        img.show()
         # logger.info("Quantum choice = {}".format(self.move))
         return self.move
 

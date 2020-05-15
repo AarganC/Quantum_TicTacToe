@@ -3,6 +3,7 @@ import random
 import numpy as np
 from qiskit import Aer, execute, QuantumCircuit, QuantumRegister, ClassicalRegister
 from contracts import Agent, GameState
+from qiskit.tools.visualization import plot_histogram
 
 logger = logging.getLogger()
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -55,6 +56,11 @@ class QuantumGroverAgent(Agent,):
         backend = Aer.get_backend('qasm_simulator')
         shots = 1024
         results = execute(groverCircuit, backend=backend, shots=shots).result()
+        answer = results.get_counts(groverCircuit)
+        fig = plot_histogram(answer)
+        fig.show()
+        img = groverCircuit.draw(output="mpl")
+        img.show()
         answer = results.get_counts()
 
         reversed_answer = {}
@@ -85,7 +91,6 @@ class QuantumGroverAgent(Agent,):
 
         # logger.info("Quantum choice = {}".format(self.move))
         return self.move
-
 
     def observe(self, r: float, t: bool, player_index: int):
         pass
