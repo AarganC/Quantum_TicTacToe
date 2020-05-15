@@ -1,6 +1,11 @@
-from contracts import Agent, GameState
 import logging
+from contracts import Agent, GameState
+from qiskit import IBMQ
+from qiskit.tools.monitor import job_monitor
+from qiskit.providers.ibmq import least_busy
+from qiskit.tools.visualization import plot_histogram
 from qiskit import QuantumCircuit, QuantumRegister, ClassicalRegister, execute, Aer
+
 logger = logging.getLogger()
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
@@ -11,6 +16,7 @@ class QuantumAgent(Agent,):
         self.num_qubits = 9
         self.num_t_gates = [0] * self.num_qubits
         self.action_space_size = [None] * self.num_qubits
+        self.i = 0
 
     def act(self, gs: GameState) -> int:
         """
@@ -27,12 +33,29 @@ class QuantumAgent(Agent,):
         # print(board)
         # print(gs.get_available_actions(gs.get_active_player()))
         for x in gs.get_available_actions(gs.get_active_player()):
-            print(x)
+            # print(x)
             board[x] = None
 
         # print(board)
 
         num_qubits = 9
+
+        if self.i == 0:
+            IBMQ.save_account(
+                '4e7733db1f6562877cfcdc29a57055c35adda998bf4c05f38ed83f39a569f7d52c6bd46e8a40e82681f6b4b102a35672ff2976de251917b7247f0951368609cd',
+                overwrite=True)
+
+            IBMQ.load_account()
+            provider = IBMQ.get_provider(hub='ibm-q')
+
+            # backend = least_busy(provider.backends(filters=lambda x:
+            # x.configuration().n_qubits >= 9 and
+            #     not x.configuration().simulator and
+            #     x.status().operational == True))
+            # print("least busy backend: ", backend)
+            self.i += 1
+
+
         # reset the T gate counter
         self.num_t_gates = [0] * num_qubits
         # Reserve des adresses mémoire afin de stocker 9 qbits
@@ -47,6 +70,7 @@ class QuantumAgent(Agent,):
         for index, move in enumerate(board):
 
             if move:
+                # delete action from possibilities
                 qc.x(q[index])
             else:
                 # this space is a potential move
@@ -163,11 +187,14 @@ class QuantumAgent(Agent,):
                 self.num_t_gates[index] = -1
         qc.measure(q, c)
 
-        logger.info("Made the circuit, running it on the backend")
-        backend = Aer.get_backend('qasm_simulator')
+        backend = provider.backends('ibmq_qasm_simulator')
+        logger.info("Made the circuit, running it on the backend: {}".format(backend))
         shots = 100
-        job_sim = execute(qc, backend, shots=shots)
+        # job_sim = execute(qc, backend, shots=shots)
+        job_sim = execute(qc, backend=backend, shots=shots)
         sim_result = job_sim.result().get_counts(qc)
+
+        job_monitor(job_sim, interval=2)
 
         counts = [0]*num_qubits
 
@@ -188,9 +215,11 @@ class QuantumAgent(Agent,):
                 max_count = count
 
         self.move = max_index
+        results = job_sim.result()
+        answer = results.get_counts(qc)
+        plot_histogram(answer)
         # logger.info("Quantum choice = {}".format(self.move))
         return self.move
-
 
     def observe(self, r: float, t: bool, player_index: int):
         pass

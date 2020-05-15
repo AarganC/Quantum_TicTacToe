@@ -108,8 +108,8 @@ class TicTacToeGameState(GameState):
         for i in range(3):
             for j in range(3):
                 state_vec[i * 3 * 3 + j * 3 + (self.board[i, j] + 1)] = 1
-        print("state_vec = {}".format(state_vec))
-        print("state_vec.shape = {}".format(state_vec.shape))
+        # print("state_vec = {}".format(state_vec))
+        # print("state_vec.shape = {}".format(state_vec.shape))
         return state_vec
 
 

@@ -1,3 +1,6 @@
 .idea/
 __pycache__/
 .DS_Store
+agents/command_line_agent_gui.py
+environments/tictactoe/experiment_tictactoe_with_command_line_agent_versus_quantum_basic_agent_gui.py
+gui/
