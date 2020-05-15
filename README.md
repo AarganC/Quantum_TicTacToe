@@ -54,5 +54,5 @@ The main modifications for Quantum are located on `agents` folder and `environme
 
 We have commented the plot display in basic and grover agents, because of Qiskit [issue #4439](https://github.com/Qiskit/qiskit-terra/issues/4439).
 
-This project is based on an Custom Tic Tac Toe project and on [TicTacQ](https://qiskit.org/experiments/tictacq/) project
+This project is based on a Custom Tic Tac Toe project and on [TicTacQ](https://qiskit.org/experiments/tictacq/) project
 
