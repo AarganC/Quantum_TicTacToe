@@ -23,46 +23,37 @@ class QuantumGroverAgent(Agent,):
             int : the index of the move to be made
         """
 
-        # TODO would it be better to only map to qubits that could be moves
-        # However this would mean lots of index/physical qubit number swaps
-
         board = [-1] * 9
-        # print(board)
-        # print(gs.get_available_actions(gs.get_active_player()))
+
         for x in gs.get_available_actions(gs.get_active_player()):
             print(x)
             board[x] = None
 
-        # print(board)
-
-        # create a superpositon of potential moves
+        # superpositon of potential moves
         groverCircuit, registers = self._board_to_superposition(board)
 
-        # this means the only avaliable space is the last one
+        # this means the only available space is the last one
         if isinstance(groverCircuit, int):
             self.move = groverCircuit
             return
 
-        # add the oracle
         QuantumGroverAgent._oracle(groverCircuit, registers[0])
-
-        # add the diffusion operator
         QuantumGroverAgent._inversion_about_average(groverCircuit, registers[0], 3)
-
-        # measure the results
         groverCircuit.measure(registers[0], registers[1])
 
-        # run the circuit
+        # run circuit
         backend = Aer.get_backend('qasm_simulator')
         shots = 1024
         results = execute(groverCircuit, backend=backend, shots=shots).result()
         answer = results.get_counts(groverCircuit)
-        fig = plot_histogram(answer)
-        fig.show()
-        img = groverCircuit.draw(output="mpl")
-        img.show()
+        '''
+        plot_hist = plot_histogram(answer)
+        plot_circuit = groverCircuit.draw(output="mpl")
+        plot_hist.show()
+        plot_circuit.show()
+        plot_hist.savefig('quantum_grover_agent_histogram.png')
+        '''
         answer = results.get_counts()
-
         reversed_answer = {}
 
         # reverse all the keys

@@ -40,9 +40,10 @@ class QuantumAgent(Agent,):
 
         num_qubits = 9
 
-        if self.i == 0:
+        use_ibm = False
+        if self.i == 0 and use_ibm:
             IBMQ.save_account(
-                '4e7733db1f6562877cfcdc29a57055c35adda998bf4c05f38ed83f39a569f7d52c6bd46e8a40e82681f6b4b102a35672ff2976de251917b7247f0951368609cd',
+                '4e7733db1f6562877cfcdc29a57055c35adda99....69f7d52c6bd46e8a40e82681f6b4b102a35672ff2976de251917b7247f0951368609cd',
                 overwrite=True)
 
             IBMQ.load_account()
@@ -217,10 +218,16 @@ class QuantumAgent(Agent,):
         self.move = max_index
         results = job_sim.result()
         answer = results.get_counts(qc)
-        fig = plot_histogram(answer)
-        fig.show()
-        img = qc.draw(output="mpl")
-        img.show()
+
+        '''
+        plot_circuit = qc.draw(output="mpl")
+        plot_hist = plot_histogram(answer)
+        plot_circuit = qc.draw(output="mpl")
+        plot_hist.show()
+        plot_circuit.show()
+        plot_hist.savefig('quantum_grover_agent_histogram.png')
+        '''
+
         # logger.info("Quantum choice = {}".format(self.move))
         return self.move
 
