@@ -34,6 +34,9 @@ class TicTacToeGameState(GameState):
         return gs_clone
 
     def step(self, player_index: int, action_index: int):
+        if action_index == -1:
+            return
+
         assert (not self.game_over)
         assert (player_index == self.active_player)
         assert (0 <= action_index <= 8)

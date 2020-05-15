@@ -1,0 +1,53 @@
+h2.tic-tac-toe-header {
+    color: #444444;
+    opacity: 0.8;
+}
+
+.instructions {
+    text-align: center;
+    font-size: 18px;
+    padding-top: 10px;
+    color: #444444;
+    opacity: 0.8;
+}
+
+.game-square-contents {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    cursor: pointer;
+    text-align: center;
+    font-size: 48px;
+    font-weight: bold;
+    background-color: #FCFCFC;
+    box-shadow: 2px 2px 8px -4px #000;
+    border-style: solid;
+    border-color: #D1D1D1;
+    border-width: 1px;
+    text-shadow: -1px -1px 1px #fff, 1px 1px 1px #000;
+    color: #9c8468;
+    opacity: 0.8;
+
+}
+
+.game-square {
+    position: relative;
+}
+
+.game-square:before {
+    content: "";
+    display: block;
+    padding-top: 100%;
+}
+
+.game-square-contents > p {
+    padding-top: 0%;
+}
+
+.game-board {
+    text-align: center;
+    margin-top: 200px;
+}
+

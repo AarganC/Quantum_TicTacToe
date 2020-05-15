@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>{{ data.title }}</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/index.css') }}">
+</head>
+
+<body data-game="{{ data.game }}">
+
+<div class="container">
+
+    <div class="col-md-4 col-md-offset-4 game-board">
+        <h2 class="tic-tac-toe-header">{{ data.title }}</h2>
+        <div class="row game-row">
+            <div class="col-xs-4 game-square">
+                <div class="game-square-contents win-1 win-4 win-8" id="square-1" data-square="0"></div>
+            </div>
+            <div class="col-xs-4 game-square">
+                <div class="game-square-contents win-1 win-5" id="square-2" data-square="1"></div>
+            </div>
+            <div class="col-xs-4 game-square">
+                <div class="game-square-contents win-1 win-6 win-7" id="square-3" data-square="2"></div>
+            </div>
+        </div>
+        <div class="row game-row">
+            <div class="col-xs-4 game-square">
+                <div class="game-square-contents win-2 win-4" id="square-4" data-square="3"></div>
+            </div>
+            <div class="col-xs-4 game-square">
+                <div class="game-square-contents win-2 win-5 win-7 win-8" id="square-5" data-square="4"></div>
+            </div>
+            <div class="col-xs-4 game-square">
+                <div class="game-square-contents win-2 win-6" id="square-6" data-square="5"></div>
+            </div>
+        </div>
+        <div class="row game-row">
+            <div class="col-xs-4 game-square">
+                <div class="game-square-contents win-3 win-4 win-7" id="square-7" data-square="6"></div>
+            </div>
+            <div class="col-xs-4 game-square">
+                <div class="game-square-contents win-3 win-5" id="square-8" data-square="7"></div>
+            </div>
+            <div class="col-xs-4 game-square">
+                <div class="game-square-contents win-3 win-6 win-8" id="square-9" data-square="8"></div>
+            </div>
+        </div>
+        <div class="row instructions">
+            <br>
+            <span id="message">Your turn!</span>
+            <br><br>
+            <button class="btn btn-default" onclick="restartGame()">Restart</button>
+        </div>
+    </div>
+
+</div>
+
+<script type="application/javascript" src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script type="application/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="{{ url_for('static', filename = 'js/index.js') }}"></script>
+
+</body>
+</html>
+
+
