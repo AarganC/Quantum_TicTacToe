@@ -43,7 +43,7 @@ class QuantumAgent(Agent,):
         use_ibm = False
         if self.i == 0 and use_ibm:
             IBMQ.save_account(
-                '4e7733db1f6562877cfcdc29a57055c35adda99....69f7d52c6bd46e8a40e82681f6b4b102a35672ff2976de251917b7247f0951368609cd',
+                'mykey',
                 overwrite=True)
 
             IBMQ.load_account()
